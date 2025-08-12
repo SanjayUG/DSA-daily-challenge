@@ -1,0 +1,146 @@
+/*
+Problem statement
+You are given an N x M integer matrix. Your task is to modify this matrix in place so that if any cell contains the value 0, then all cells in the same row and column as that cell should also be set to 0.
+
+Requirements:
+
+If a cell in the matrix has the value 0, set all other cells in that cell's row and column to 0.
+You should perform this modification in place (without using additional matrices).
+You must do it in place.
+
+For Example:
+
+If the given grid is this:
+[7, 19, 3]
+[4, 21, 0]
+
+Then the modified grid will be:
+[7, 19, 0]
+[0, 0,  0]
+
+
+*/
+
+
+/*
+
+function setZeros(matrix):
+    firstRow = false
+    firstCol = false
+
+    # Step 1: Check all cells to mark zero rows/cols in first row and col
+    for i from 0 to matrix.rows - 1:
+        for j from 0 to matrix.cols - 1:
+            if matrix[i][j] == 0:
+                if i == 0:
+                    firstRow = true
+                if j == 0:
+                    firstCol = true
+                matrix[0][j] = 0   # mark column j
+                matrix[i][0] = 0   # mark row i
+
+    # Step 2: Use markers to set inner cells to zero
+    for i from 1 to matrix.rows - 1:
+        for j from 1 to matrix.cols - 1:
+            if matrix[i][0] == 0 OR matrix[0][j] == 0:
+                matrix[i][j] = 0
+
+    # Step 3: Zero out first row if needed
+    if firstRow == true:
+        for j from 0 to matrix.cols - 1:
+            matrix[0][j] = 0
+
+    # Step 4: Zero out first column if needed
+    if firstCol == true:
+        for i from 0 to matrix.rows - 1:
+            matrix[i][0] = 0
+
+
+*/
+
+
+import java.io.*;
+import java.util.* ;
+
+public class Solution {
+  public static void setZeros(int matrix[][]) {
+      boolean firstRow = false, firstCol = false;
+
+    // Set markers in first row and first column
+    for (int i = 0; i < matrix.length; i++)
+      for (int j = 0; j < matrix[0].length; j++)
+        if (matrix[i][j] == 0) {
+          if (i == 0) firstRow = true;
+          if (j == 0) firstCol = true;
+          matrix[0][j] = 0;
+          matrix[i][0] = 0;
+        }
+
+    // Replace inner matrix
+    for (int i = 1; i < matrix.length; i++)
+      for (int j = 1; j < matrix[0].length; j++)
+        if (matrix[i][0] == 0 || matrix[0][j] == 0)
+          matrix[i][j] = 0;
+
+    // Last remaining checks
+    if (firstRow)
+      for (int j = 0; j < matrix[0].length; j++)
+        matrix[0][j] = 0;
+
+    if (firstCol) 
+      for (int i = 0; i < matrix.length; i++)
+        matrix[i][0] = 0;
+  }
+}
+
+----
+
+/*
+
+import java.util.ArrayList;
+
+public class Solution {
+    public static void setZeros(ArrayList<ArrayList<Integer>> matrix) {
+        boolean firstRow = false, firstCol = false;
+        int rows = matrix.size();
+        int cols = matrix.get(0).size();
+
+        // Step 1: Mark first row and column if there are zeros
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix.get(i).get(j) == 0) {
+                    if (i == 0) firstRow = true;
+                    if (j == 0) firstCol = true;
+                    matrix.get(0).set(j, 0); // mark column j
+                    matrix.get(i).set(0, 0); // mark row i
+                }
+            }
+        }
+
+        // Step 2: Use markers to set inner cells to zero
+        for (int i = 1; i < rows; i++) {
+            for (int j = 1; j < cols; j++) {
+                if (matrix.get(i).get(0) == 0 || matrix.get(0).get(j) == 0) {
+                    matrix.get(i).set(j, 0);
+                }
+            }
+        }
+
+        // Step 3: Zero first row if needed
+        if (firstRow) {
+            for (int j = 0; j < cols; j++) {
+                matrix.get(0).set(j, 0);
+            }
+        }
+
+        // Step 4: Zero first column if needed
+        if (firstCol) {
+            for (int i = 0; i < rows; i++) {
+                matrix.get(i).set(0, 0);
+            }
+        }
+    }
+}
+
+
+*/
