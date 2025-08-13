@@ -1,0 +1,104 @@
+/*
+
+You are given a linked list where each node contains:
+An integer value val
+A pointer next to the next node in the list
+A pointer random (also called arb or arbitrary) that can point to any node in the list or null.
+
+Your task: Create a deep copy of the list such that:
+Every node in the new list has the same value as the corresponding node in the original list.
+The next and random pointers are correctly assigned in the copied list.
+The copied list is a completely separate linked list (changing one does not affect the other).
+
+*/
+
+
+/*
+
+FUNCTION copyRandomList(head):
+    IF head IS null:
+        RETURN null
+
+    // Step 1: Clone each node and insert after original node
+    curr = head
+    WHILE curr != null:
+        clone = NEW Node(curr.value)
+        clone.next = curr.next
+        curr.next = clone
+        curr = clone.next
+
+    // Step 2: Assign random pointers for the cloned nodes
+    curr = head
+    WHILE curr != null:
+        IF curr.random != null:
+            curr.next.random = curr.random.next
+        curr = curr.next.next
+
+    // Step 3: Separate original list and cloned list
+    curr = head
+    cloneHead = head.next
+    copy = cloneHead
+
+    WHILE curr != null:
+        curr.next = curr.next.next
+        IF copy.next != null:
+            copy.next = copy.next.next
+        curr = curr.next
+        copy = copy.next
+
+    RETURN cloneHead
+
+
+*/
+
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+
+public class CopyRandomList {
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+
+        // 1. Clone nodes and insert them after originals
+        Node curr = head;
+        while (curr != null) {
+            Node clone = new Node(curr.val);
+            clone.next = curr.next;
+            curr.next = clone;
+            curr = clone.next;
+        }
+
+        // 2. Set random pointers for clones
+        curr = head;
+        while (curr != null) {
+            if (curr.random != null) {
+                curr.next.random = curr.random.next;
+            }
+            curr = curr.next.next;
+        }
+
+        // 3. Separate original and clone lists
+        curr = head;
+        Node cloneHead = head.next;
+        Node copy = cloneHead;
+
+        while (curr != null) {
+            curr.next = curr.next.next;
+            if (copy.next != null) {
+                copy.next = copy.next.next;
+            }
+            curr = curr.next;
+            copy = copy.next;
+        }
+
+        return cloneHead;
+    }
+}
