@@ -1,0 +1,89 @@
+/*
+Problem statement
+You have been given a Binary Tree of integers. You are supposed to return the level order traversal of the given tree.
+
+For example:
+For the given binary tree
+The level order traversal will be {1,2,3,4,5,6,7}.
+
+
+*/
+
+
+
+import java.util.* ;
+import java.io.*; 
+/*
+
+	Following is the structure used to represent the Binary Tree Node
+
+	class BinaryTreeNode<T> {
+		T val;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+
+		public BinaryTreeNode(T val) {
+			this.val = val;
+			this.left = null;
+			this.right = null;
+		}
+	}
+
+*/
+
+
+/*
+
+FUNCTION getLevelOrder(root):
+    IF root IS null:
+        RETURN empty list
+
+    CREATE empty list arr
+    CREATE empty queue q
+
+    ENQUEUE root into q
+
+    WHILE q is not empty:
+        curr = DEQUEUE from q
+        ADD curr.value to arr
+
+        IF curr.left is not null:
+            ENQUEUE curr.left into q
+
+        IF curr.right is not null:
+            ENQUEUE curr.right into q
+
+    RETURN arr
+
+
+*/
+
+import java.util.ArrayList;
+
+public class Solution {
+
+  	public static ArrayList<Integer> getLevelOrder(BinaryTreeNode root) {
+    	if(root == null) {
+			  return new ArrayList<>();
+		  }
+
+		ArrayList<Integer> arr = new ArrayList<>();
+		Queue<BinaryTreeNode> q = new LinkedList<>();
+
+		q.add(root);
+		BinaryTreeNode curr = null;
+
+		while(!q.isEmpty()) {
+			curr = q.poll();
+			arr.add(curr.val);
+			if(curr.left != null) {
+				q.add(curr.left);
+			}
+			if(curr.right != null) {
+				q.add(curr.right);
+			}
+		}
+
+		return arr;
+  	}
+}
