@@ -1,0 +1,62 @@
+/*
+
+Given a string s, find all substrings of s that are palindromes.
+A palindrome is a string that reads the same forward and backward.
+
+*/
+
+
+/*
+
+FUNCTION findAllPalindromes(s):
+    CREATE empty list result
+
+    FOR center = 0 TO length(s) - 1:
+        expandAroundCenter(s, center, center, result)       // odd length
+        expandAroundCenter(s, center, center + 1, result)   // even length
+
+    RETURN result
+
+
+FUNCTION expandAroundCenter(s, left, right, result):
+    WHILE left >= 0 AND right < length(s) AND s[left] == s[right]:
+        ADD substring s[left..right] to result
+        left = left - 1
+        right = right + 1
+
+
+*/
+
+import java.util.*;
+
+public class PalindromeSubstrings {
+    public static List<String> findAllPalindromes(String s) {
+        List<String> result = new ArrayList<>();
+
+        for (int center = 0; center < s.length(); center++) {
+            // Odd length palindromes
+            expandAroundCenter(s, center, center, result);
+
+            // Even length palindromes
+            expandAroundCenter(s, center, center + 1, result);
+        }
+
+        return result;
+    }
+
+    private static void expandAroundCenter(String s, int left, int right, List<String> result) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            result.add(s.substring(left, right + 1));
+            left--;
+            right++;
+        }
+    }
+
+    public static void main(String[] args) {
+        String input = "aba";
+        List<String> palindromes = findAllPalindromes(input);
+        for (String p : palindromes) {
+            System.out.println(p);
+        }
+    }
+}
