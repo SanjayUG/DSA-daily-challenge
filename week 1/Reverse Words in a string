@@ -1,0 +1,71 @@
+
+/*
+
+Given a string s, reverse the order of the words.
+A word is defined as a sequence of non-space characters.
+Return a string with the words in reverse order, separated by a single space.
+Extra spaces should be removed.
+
+*/
+
+
+/*
+
+FUNCTION reverseStringWordWise(input):
+    rev = ""                   // result string
+    i = length(input) - 1      // start from last character
+
+    WHILE i >= 0:
+        IF input[i] == ' ':
+            i = i - 1          // skip spaces
+        ELSE:
+            j = i
+            // find the start index of the word
+            WHILE j >= 0 AND input[j] != ' ':
+                j = j - 1
+
+            // append the word to result
+            FOR k = j + 1 TO i:
+                rev = rev + input[k]
+
+            rev = rev + " "    // add space after word
+            i = j              // move to the character before this word
+
+    RETURN rev without the last extra space
+
+
+*/
+
+
+import java.util.Scanner;
+
+class Solution {
+
+    static String reverseStringWordWise(String input) {
+        String rev = "";
+        int i = input.length() - 1;
+        while( i >= 0) {
+            if(input.charAt(i) == ' ') {
+                i--;
+            } else { 
+                int j = i;
+                while(j >= 0 && input.charAt(j) != ' ') {
+                    j--;
+                }
+                for(int k=j+1; k<=i; k++) {
+                    rev = rev + input.charAt(k);
+                }
+                rev = rev + " ";
+                i = j;
+            }
+        }
+        return rev.substring(0,rev.length() - 1);
+    }
+    
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        String input = sc.nextLine();
+        String ans = reverseStringWordWise(input);
+        System.out.println(ans);
+    }
+}
