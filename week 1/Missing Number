@@ -1,0 +1,92 @@
+/*
+
+You are given an array nums containing n distinct numbers taken from the range [0, n].
+Find the one number missing from the array.
+
+Example
+Input:
+nums = [3, 0, 1]
+
+Output:
+
+2
+
+*/
+
+
+
+public class MissingNumber {
+    public static int missingNumber(int[] nums) {
+        int n = nums.length;
+        int expectedSum = n * (n + 1) / 2;
+        int actualSum = 0;
+        for (int num : nums) {
+            actualSum += num;
+        }
+        return expectedSum - actualSum;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3, 0, 1};
+        System.out.println(missingNumber(nums)); // Output: 2
+    }
+}
+
+--------
+
+/*
+
+FUNCTION missingNumber(nums):
+    n = length(nums)
+    i = 0
+
+    WHILE i < n:
+        correctIndex = nums[i]
+        IF nums[i] < n AND nums[i] != nums[correctIndex]:
+            SWAP nums[i], nums[correctIndex]
+        ELSE:
+            i++
+
+    FOR i = 0 TO n-1:
+        IF nums[i] != i:
+            RETURN i
+
+    RETURN n
+
+
+*/
+
+public class MissingNumberCyclicSort {
+    public static int missingNumber(int[] nums) {
+        int n = nums.length;
+        int i = 0;
+
+        while (i < n) {
+            int correctIndex = nums[i];
+            if (nums[i] < n && nums[i] != nums[correctIndex]) {
+                // swap nums[i] and nums[correctIndex]
+                int temp = nums[i];
+                nums[i] = nums[correctIndex];
+                nums[correctIndex] = temp;
+            } else {
+                i++;
+            }
+        }
+
+        // check which index has wrong number
+        for (i = 0; i < n; i++) {
+            if (nums[i] != i) {
+                return i;
+            }
+        }
+
+        return n; // if all matched, missing is n
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3, 0, 1};
+        System.out.println(missingNumber(nums)); // Output: 2
+    }
+}
+
+
