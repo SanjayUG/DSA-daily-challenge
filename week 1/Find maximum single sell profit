@@ -1,0 +1,59 @@
+/*
+
+Given an array prices[] where prices[i] is the price of a stock on day i,
+find the maximum profit you can achieve from a single buy and a single sell.
+
+You must buy before you sell.
+If no profit is possible, return 0.
+
+Example
+Input:
+prices = [7, 1, 5, 3, 6, 4]
+
+Output:
+5
+
+*/
+
+
+
+
+/*
+ FUNCTION maxProfit(prices):
+    minPrice = infinity
+    maxProfit = 0
+
+    FOR each price in prices:
+        IF price < minPrice:
+            minPrice = price
+        ELSE IF price - minPrice > maxProfit:
+            maxProfit = price - minPrice
+
+    RETURN maxProfit
+
+
+
+*/
+
+
+public class MaxProfit {
+    public static int maxProfit(int[] prices) {
+        int minPrice = Integer.MAX_VALUE;
+        int maxProfit = 0;
+
+        for (int price : prices) {
+            if (price < minPrice) {
+                minPrice = price; // update min price
+            } else if (price - minPrice > maxProfit) {
+                maxProfit = price - minPrice; // update profit
+            }
+        }
+
+        return maxProfit;
+    }
+
+    public static void main(String[] args) {
+        int[] prices = {7, 1, 5, 3, 6, 4};
+        System.out.println(maxProfit(prices)); // Output: 5
+    }
+}
