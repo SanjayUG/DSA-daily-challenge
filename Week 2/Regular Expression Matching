@@ -1,0 +1,88 @@
+/*
+
+You are given two strings:
+s → the input string
+p → the pattern
+
+Your task is to implement regular expression matching with support for:
+. → matches any single character
+* → matches zero or more of the preceding element
+
+The matching should cover the entire input string, not just part of it.
+✅ Example
+Input: s = "aab", p = "c*a*b"
+Output: true
+Explanation: "c*" → matches zero 'c', "a*" → matches "aa", "b" → matches "b".
+
+*/
+
+/*
+function isMatch(s, p):
+    n = length of s
+    m = length of p
+
+    dp = 2D array (n+1 x m+1) initialized to false
+    dp[0][0] = true   // empty string matches empty pattern
+
+    // handle patterns like a*, a*b*, a*b*c* ...
+    for j in 1..m:
+        if p[j-1] == '*' and dp[0][j-2] == true:
+            dp[0][j] = true
+
+    for i in 1..n:
+        for j in 1..m:
+            if p[j-1] == s[i-1] OR p[j-1] == '.':
+                dp[i][j] = dp[i-1][j-1]
+            else if p[j-1] == '*':
+                // zero occurrence
+                dp[i][j] = dp[i][j-2]
+                // one or more occurrence
+                if p[j-2] == s[i-1] OR p[j-2] == '.':
+                    dp[i][j] = dp[i][j] OR dp[i-1][j]
+
+    return dp[n][m]
+
+
+
+
+
+*/
+
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        int n = s.length();
+        int m = p.length();
+
+        boolean[][] dp = new boolean[n + 1][m + 1];
+        dp[0][0] = true;
+
+        // Handle patterns like a*, a*b*, a*b*c* ...
+        for (int j = 2; j <= m; j++) {
+            if (p.charAt(j - 1) == '*' && dp[0][j - 2]) {
+                dp[0][j] = true;
+            }
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                char sc = s.charAt(i - 1);
+                char pc = p.charAt(j - 1);
+
+                if (pc == sc || pc == '.') {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else if (pc == '*') {
+                    // zero occurrence of preceding char
+                    dp[i][j] = dp[i][j - 2];
+
+                    // one or more occurrence of preceding char
+                    char prev = p.charAt(j - 2);
+                    if (prev == sc || prev == '.') {
+                        dp[i][j] = dp[i][j] || dp[i - 1][j];
+                    }
+                }
+            }
+        }
+
+        return dp[n][m];
+    }
+}
