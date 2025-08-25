@@ -1,0 +1,49 @@
+/*
+Given a binary tree and an integer targetSum, return true if there exists a root-to-leaf path such that the sum of all node values along the path equals targetSum. Otherwise, return false.
+👉 A leaf is a node with no children.
+
+
+*/
+
+/*
+
+function hasPathSum(root, targetSum):
+    if root is null:
+        return false
+    
+    # Check if it's a leaf node
+    if root.left == null AND root.right == null:
+        return (targetSum == root.val)
+
+    # Recurse left and right
+    return hasPathSum(root.left, targetSum - root.val) OR
+           hasPathSum(root.right, targetSum - root.val)
+
+
+*/
+
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+
+    TreeNode(int val) {
+        this.val = val;
+        this.left = this.right = null;
+    }
+}
+
+public class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if (root == null) return false;
+
+        // If leaf node
+        if (root.left == null && root.right == null) {
+            return targetSum == root.val;
+        }
+
+        // Recurse on left and right subtrees
+        return hasPathSum(root.left, targetSum - root.val) ||
+               hasPathSum(root.right, targetSum - root.val);
+    }
+}
