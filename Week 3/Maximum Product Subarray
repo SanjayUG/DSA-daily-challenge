@@ -1,0 +1,51 @@
+/*
+Given an integer array nums, find the contiguous subarray within the array that has the largest product, and return the product.
+Input: nums = [2, 3, -2, 4]
+Output: 6
+Explanation: [2,3] has the largest product = 6
+
+Input: nums = [-2, 0, -1]
+Output: 0
+Explanation: The result cannot be 2 because [-2,-1] is not contiguous.
+
+
+
+*/
+
+
+/*
+function maxProduct(nums):
+    maxProd = nums[0]
+    minProd = nums[0]
+    result = nums[0]
+
+    for i from 1 to nums.length-1:
+        tempMax = maxProd
+        maxProd = max(nums[i], nums[i]*maxProd, nums[i]*minProd)
+        minProd = min(nums[i], nums[i]*tempMax, nums[i]*minProd)
+
+        result = max(result, maxProd)
+
+    return result
+
+
+
+*/
+
+class Solution {
+    public int maxProduct(int[] nums) {
+        int maxProd = nums[0];
+        int minProd = nums[0];
+        int result = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            int temp = maxProd;
+            maxProd = Math.max(nums[i], Math.max(nums[i] * maxProd, nums[i] * minProd));
+            minProd = Math.min(nums[i], Math.min(nums[i] * temp, nums[i] * minProd));
+
+            result = Math.max(result, maxProd);
+        }
+
+        return result;
+    }
+}
