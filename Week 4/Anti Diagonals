@@ -1,0 +1,64 @@
+/*
+Given a square matrix A (N x N), return all of its anti-diagonals.
+
+👉 Anti-diagonal means all elements having the same (i + j) index sum.
+
+Input: 
+A = [
+ [1, 2, 3],
+ [4, 5, 6],
+ [7, 8, 9]
+]
+
+Output:
+[
+ [1],
+ [2, 4],
+ [3, 5, 7],
+ [6, 8],
+ [9]
+]
+
+
+
+*/
+
+
+/*
+function antiDiagonals(matrix, n):
+    result = list of lists of size (2*n - 1)
+
+    for i from 0 to n-1:
+        for j from 0 to n-1:
+            sum = i + j
+            result[sum].append(matrix[i][j])
+
+    return result
+
+
+
+*/
+
+
+
+import java.util.*;
+
+class Solution {
+    public ArrayList<ArrayList<Integer>> antiDiagonals(int[][] A) {
+        int n = A.length;
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+
+        // Initialize result
+        for (int i = 0; i < 2 * n - 1; i++) {
+            result.add(new ArrayList<>());
+        }
+
+        // Fill anti-diagonals
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                result.get(i + j).add(A[i][j]);
+            }
+        }
+        return result;
+    }
+}
