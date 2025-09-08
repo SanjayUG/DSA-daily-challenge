@@ -1,0 +1,97 @@
+/*
+Given the root of a binary tree, return its zigzag level order traversal:
+
+First level: left → right
+
+Second level: right → left
+
+Third level: left → right
+
+and so on...
+
+Input:
+       3
+      / \
+     9   20
+        /  \
+       15   7
+
+Output: [[3], [20, 9], [15, 7]]
+
+
+
+*/
+
+
+/*
+function zigzagLevelOrder(root):
+    if root == null: return []
+
+    result = []
+    queue = [root]
+    leftToRight = true
+
+    while queue not empty:
+        size = len(queue)
+        level = empty list
+
+        for i in 1..size:
+            node = queue.pop()
+            if leftToRight:
+                level.append(node.val)
+            else:
+                level.insert(0, node.val)
+
+            if node.left: queue.push(node.left)
+            if node.right: queue.push(node.right)
+
+        result.append(level)
+        leftToRight = !leftToRight
+
+    return result
+
+
+
+*/
+
+
+import java.util.*;
+
+class TreeNode {
+    int val;
+    TreeNode left, right;
+    TreeNode(int val) { this.val = val; }
+}
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean leftToRight = true;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            LinkedList<Integer> level = new LinkedList<>();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                if (leftToRight) {
+                    level.addLast(node.val);
+                } else {
+                    level.addFirst(node.val);
+                }
+
+                if (node.left != null) queue.offer(node.left);
+                if (node.right != null) queue.offer(node.right);
+            }
+
+            result.add(level);
+            leftToRight = !leftToRight; // flip direction
+        }
+
+        return result;
+    }
+}
