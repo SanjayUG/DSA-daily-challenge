@@ -1,0 +1,73 @@
+/*
+You are given a perfect binary tree (all leaves at the same level, every parent has 2 children).
+Each node has a next pointer that should point to its right neighbor in the same level.
+If there is no neighbor, next = null.
+
+Input Tree:                 Output with Next Pointers:
+       1                            1 → null
+     /   \                        /    \
+    2     3          =>          2  →   3 → null
+   / \   / \                    / \   / \
+  4   5 6   7                  4 → 5 → 6 → 7 → null
+
+
+*/
+
+
+/*
+function connect(root):
+    if root is null: return null
+
+    leftmost = root
+    while leftmost.left != null:
+        head = leftmost
+        while head != null:
+            head.left.next = head.right
+            if head.next != null:
+                head.right.next = head.next.left
+            head = head.next
+        leftmost = leftmost.left
+    return root
+
+
+
+*/
+
+
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node(int val) {
+        this.val = val;
+        left = right = next = null;
+    }
+}
+
+class Solution {
+    public Node connect(Node root) {
+        if (root == null) return null;
+
+        Node leftmost = root;
+
+        while (leftmost.left != null) {
+            Node head = leftmost;
+            while (head != null) {
+                // Connect left → right
+                head.left.next = head.right;
+
+                // Connect right → next.left (if available)
+                if (head.next != null) {
+                    head.right.next = head.next.left;
+                }
+
+                head = head.next; // move to next node at same level
+            }
+            leftmost = leftmost.left; // move down one level
+        }
+
+        return root;
+    }
+}
