@@ -1,0 +1,78 @@
+/*
+Partition the list so that all nodes with values < x come before nodes with values >= x, while preserving the relative order of nodes in each partition.
+
+Example
+
+Input:
+
+head = [1,4,3,2,5,2], x = 3
+
+
+Output:
+
+[1,2,2,4,3,5]
+
+
+*/
+
+/*
+function partitionList(head, x):
+    create beforeHead = new Node(0)
+    create afterHead = new Node(0)
+
+    before = beforeHead
+    after = afterHead
+
+    while head != null:
+        if head.val < x:
+            before.next = head
+            before = before.next
+        else:
+            after.next = head
+            after = after.next
+        move head = head.next
+
+    after.next = null
+    before.next = afterHead.next
+
+    return beforeHead.next
+
+
+
+*/
+
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+class Solution {
+    public ListNode partition(ListNode head, int x) {
+        // Dummy heads
+        ListNode beforeHead = new ListNode(0);
+        ListNode afterHead = new ListNode(0);
+
+        // Pointers to build the lists
+        ListNode before = beforeHead;
+        ListNode after = afterHead;
+
+        while (head != null) {
+            if (head.val < x) {
+                before.next = head;
+                before = before.next;
+            } else {
+                after.next = head;
+                after = after.next;
+            }
+            head = head.next;
+        }
+
+        // Connect before and after lists
+        after.next = null;           // important to avoid cycles
+        before.next = afterHead.next;
+
+        return beforeHead.next;
+    }
+}
