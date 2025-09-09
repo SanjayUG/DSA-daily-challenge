@@ -1,0 +1,52 @@
+/*
+Given an integer array nums, return the length of the longest strictly increasing subsequence.
+
+👉 A subsequence is derived from an array by deleting some or no elements without changing the order of the remaining elements.
+
+✅ Example
+Input: nums = [10,9,2,5,3,7,101,18]
+Output: 4
+Explanation: The LIS is [2,3,7,101], so length = 4.
+
+
+*/
+
+
+/*
+function lengthOfLIS(nums):
+    sub = empty list
+    for num in nums:
+        if sub empty OR num > last element of sub:
+            append num to sub
+        else:
+            pos = lower_bound(sub, num)  # first index where sub[i] >= num
+            sub[pos] = num
+    return length(sub)
+
+
+
+
+*/
+
+
+import java.util.*;
+
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        List<Integer> sub = new ArrayList<>();
+
+        for (int num : nums) {
+            if (sub.isEmpty() || num > sub.get(sub.size() - 1)) {
+                sub.add(num);
+            } else {
+                int pos = Collections.binarySearch(sub, num);
+                if (pos < 0) {
+                    pos = -(pos + 1); // lower_bound position
+                }
+                sub.set(pos, num);
+            }
+        }
+
+        return sub.size();
+    }
+}
