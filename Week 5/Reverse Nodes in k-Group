@@ -1,0 +1,81 @@
+/*
+Given a linked list, reverse the nodes of the list k at a time, and return its modified list.
+
+⚠️ If the number of nodes is not a multiple of k, the last remaining nodes should stay as is.
+Example
+
+Input:
+
+head = [1,2,3,4,5], k = 2
+
+
+Output:
+
+[2,1,4,3,5]
+
+*/
+
+
+/*
+function reverseKGroup(head, k):
+    count = 0
+    node = head
+    while node != null and count < k:
+        node = node.next
+        count++
+
+    if count < k:
+        return head   // not enough nodes to reverse
+
+    prev = null
+    curr = head
+    for i = 0 to k-1:
+        next = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next
+
+    head.next = reverseKGroup(curr, k)
+
+    return prev
+
+
+
+*/
+
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        // Step 1: check if there are at least k nodes left
+        ListNode curr = head;
+        int count = 0;
+        while (curr != null && count < k) {
+            curr = curr.next;
+            count++;
+        }
+        if (count < k) return head; // not enough nodes, return as is
+
+        // Step 2: reverse first k nodes
+        ListNode prev = null;
+        ListNode next = null;
+        curr = head;
+        count = 0;
+        while (curr != null && count < k) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            count++;
+        }
+
+        // Step 3: connect reversed part with next recursion
+        head.next = reverseKGroup(curr, k);
+
+        return prev; // new head of this k-group
+    }
+}
