@@ -1,0 +1,77 @@
+/*
+You are given an absolute path for a file in a Unix-style filesystem.
+
+Simplify it so that:
+
+. → current directory (ignore it).
+
+.. → go one directory up (pop from stack).
+
+Multiple slashes // should be treated as a single /.
+
+Return the canonical path.
+Example
+
+Input:
+
+"/home//foo/"
+
+
+Output:
+
+"/home/foo"
+
+*/
+
+
+/*
+function simplifyPath(path):
+    stack = empty stack
+    parts = split path by "/"
+
+    for each part in parts:
+        if part is "" or ".":
+            continue
+        else if part is "..":
+            if stack not empty:
+                stack.pop()
+        else:
+            stack.push(part)
+
+    result = "/" + join(stack with "/")
+    if result is empty:
+        return "/"
+    return result
+
+
+*/
+
+
+import java.util.*;
+
+class Solution {
+    public String simplifyPath(String path) {
+        Stack<String> stack = new Stack<>();
+        String[] parts = path.split("/");
+
+        for (String part : parts) {
+            if (part.equals("") || part.equals(".")) {
+                continue;
+            } else if (part.equals("..")) {
+                if (!stack.isEmpty()) {
+                    stack.pop();
+                }
+            } else {
+                stack.push(part);
+            }
+        }
+
+        // Build result
+        StringBuilder result = new StringBuilder();
+        for (String dir : stack) {
+            result.append("/").append(dir);
+        }
+
+        return result.length() == 0 ? "/" : result.toString();
+    }
+}
