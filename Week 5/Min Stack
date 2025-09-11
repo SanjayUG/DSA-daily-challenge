@@ -1,0 +1,72 @@
+/*
+Design a stack that supports the following in O(1) time:
+
+push(val) → push element
+
+pop() → remove top
+
+top() → get top element
+
+getMin() → get minimum element in stack
+
+*/
+
+/*
+class MinStack:
+    stack = empty stack
+    minStack = empty stack
+
+    function push(val):
+        stack.push(val)
+        if minStack empty:
+            minStack.push(val)
+        else:
+            minStack.push(min(val, minStack.top()))
+
+    function pop():
+        stack.pop()
+        minStack.pop()
+
+    function top():
+        return stack.top()
+
+    function getMin():
+        return minStack.top()
+
+
+*/
+
+
+import java.util.*;
+
+class MinStack {
+    private Stack<Integer> stack;
+    private Stack<Integer> minStack;
+
+    public MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+
+    public void push(int val) {
+        stack.push(val);
+        if (minStack.isEmpty()) {
+            minStack.push(val);
+        } else {
+            minStack.push(Math.min(val, minStack.peek()));
+        }
+    }
+
+    public void pop() {
+        stack.pop();
+        minStack.pop();
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        return minStack.peek();
+    }
+}
