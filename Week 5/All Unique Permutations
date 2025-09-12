@@ -46,17 +46,8 @@ public class Solution {
         }
     }
 }
-            used[i] = true
-            temp.add(nums[i])
-            backtrack(temp)
-            temp.removeLast()
-            used[i] = false
-
-    backtrack([])
-    return result
-
-
-*/
+            
+// ----
 
 
 import java.util.*;
