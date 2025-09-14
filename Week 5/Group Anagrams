@@ -34,21 +34,23 @@ import java.util.*;
 
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
+        // Map to hold sorted string as key and list of anagrams as value
         HashMap<String, List<String>> map = new HashMap<>();
 
         for (String s : strs) {
-            int[] count = new int[26];
-            for (char c : s.toCharArray()) {
-                count[c - 'a']++;
-            }
-            String key = Arrays.toString(count); // unique signature
+            // Convert string to char array and sort it
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars); // Sorted string as key
 
+            // Manual check and add using get() and add()
             if (!map.containsKey(key)) {
                 map.put(key, new ArrayList<>());
             }
             map.get(key).add(s);
         }
 
+        // Return all grouped anagrams
         return new ArrayList<>(map.values());
     }
 }
