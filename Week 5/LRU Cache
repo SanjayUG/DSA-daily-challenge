@@ -1,0 +1,97 @@
+/*
+Design a data structure that follows the Least Recently Used (LRU) cache mechanism.
+
+Implement the LRUCache class:
+
+LRUCache(int capacity) → initialize cache with capacity
+
+get(int key) → return value if present, else -1
+
+put(int key, int value) → insert/update key; if full, evict least recently used
+
+
+*/
+
+/*
+
+class LRUCache:
+    init(capacity):
+        map = {}
+        doubly linked list with dummy head, tail
+
+    get(key):
+        if key not in map: return -1
+        move node to head (most recent)
+        return node.value
+
+    put(key, value):
+        if key in map:
+            remove node
+        if map.size == capacity:
+            remove tail.prev (least recent)
+        insert new node at head
+
+*/
+
+import java.util.*;
+
+class LRUCache {
+
+    class Node {
+        int key, value;
+        Node prev, next;
+        Node(int k, int v) {
+            key = k;
+            value = v;
+        }
+    }
+
+    private HashMap<Integer, Node> map;
+    private Node head, tail;
+    private int capacity;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        map = new HashMap<>();
+
+        // dummy head & tail
+        head = new Node(0, 0);
+        tail = new Node(0, 0);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public int get(int key) {
+        if (!map.containsKey(key)) return -1;
+        Node node = map.get(key);
+        remove(node);
+        insert(node);
+        return node.value;
+    }
+
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            remove(map.get(key));
+        }
+        if (map.size() == capacity) {
+            remove(tail.prev); // remove least recently used
+        }
+        insert(new Node(key, value));
+    }
+
+    // helper: remove node from list
+    private void remove(Node node) {
+        map.remove(node.key);
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+    }
+
+    // helper: insert node right after head (most recent)
+    private void insert(Node node) {
+        map.put(node.key, node);
+        node.next = head.next;
+        head.next.prev = node;
+        head.next = node;
+        node.prev = head;
+    }
+}
