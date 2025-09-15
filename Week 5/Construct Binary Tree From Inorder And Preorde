@@ -6,6 +6,9 @@ Preorder traversal of a binary tree.
 Inorder traversal of the same tree.
 
 Your task is to reconstruct the original binary tree.
+Preorder = [Root | Left | Right]
+
+Inorder = [Left | Root | Right]
 
 
 */
