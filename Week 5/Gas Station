@@ -1,0 +1,59 @@
+/*
+You are given two integer arrays:
+
+gas[i]: the amount of gas at station i.
+
+cost[i]: the cost of gas to travel from station i to i+1.
+
+You need to find the starting gas station index from which you can complete the circuit once in the clockwise direction.
+If it’s not possible, return -1.
+(Guaranteed that if a solution exists, it is unique.)
+
+
+*/
+
+
+
+/*
+function canCompleteCircuit(gas, cost):
+    total = 0       // net balance of gas
+    tank = 0        // current fuel in tank
+    start = 0       // candidate starting index
+
+    for i in range(0, n):
+        total += gas[i] - cost[i]
+        tank += gas[i] - cost[i]
+
+        if tank < 0:
+            // Can't reach i+1 from this start
+            start = i + 1
+            tank = 0
+
+    if total >= 0:
+        return start
+    else:
+        return -1
+
+
+
+*/
+
+
+public class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int total = 0, tank = 0, start = 0;
+
+        for (int i = 0; i < gas.length; i++) {
+            int diff = gas[i] - cost[i];
+            total += diff;
+            tank += diff;
+
+            if (tank < 0) {
+                start = i + 1;
+                tank = 0;
+            }
+        }
+
+        return total >= 0 ? start : -1;
+    }
+}
