@@ -1,0 +1,53 @@
+/*
+You have a cake of size h × w.
+
+You are given arrays horizontalCuts and verticalCuts, which represent the positions of cuts along height and width.
+
+After making all cuts, return the maximum area of a piece of cake, modulo 10^9 + 7
+
+
+*/
+
+
+/*
+function maxArea(h, w, horizontalCuts, verticalCuts):
+    sort(horizontalCuts)
+    sort(verticalCuts)
+
+    maxH = max(horizontalCuts[0], h - last(horizontalCuts))
+    for i = 1 to horizontalCuts.length-1:
+        maxH = max(maxH, horizontalCuts[i] - horizontalCuts[i-1])
+
+    maxV = max(verticalCuts[0], w - last(verticalCuts))
+    for i = 1 to verticalCuts.length-1:
+        maxV = max(maxV, verticalCuts[i] - verticalCuts[i-1])
+
+    return (maxH * maxV) % 1e9+7
+
+
+
+*/
+
+
+
+import java.util.*;
+
+public class Solution {
+    public int maxArea(int h, int w, int[] horizontalCuts, int[] verticalCuts) {
+        Arrays.sort(horizontalCuts);
+        Arrays.sort(verticalCuts);
+
+        long maxH = Math.max(horizontalCuts[0], h - horizontalCuts[horizontalCuts.length - 1]);
+        for (int i = 1; i < horizontalCuts.length; i++) {
+            maxH = Math.max(maxH, horizontalCuts[i] - horizontalCuts[i - 1]);
+        }
+
+        long maxV = Math.max(verticalCuts[0], w - verticalCuts[verticalCuts.length - 1]);
+        for (int i = 1; i < verticalCuts.length; i++) {
+            maxV = Math.max(maxV, verticalCuts[i] - verticalCuts[i - 1]);
+        }
+
+        long mod = 1000000007;
+        return (int)((maxH * maxV) % mod);
+    }
+}
