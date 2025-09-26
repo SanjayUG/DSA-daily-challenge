@@ -58,16 +58,12 @@ public class Solution {
         for(graphNode currNode : oldNode.neighbours) {
             // if map don't contains currNode then create new node of data and insert it in newNode's neighbour
             if(!map.containsKey(currNode)) {
-                // graphNode node = new graphNode(currNode.data);
+                 graphNode node = new graphNode(currNode.data);
 
-                // newNode.neighbours.add(node);
-                // map.put(currNode, node);
-                // cloneGraphUtil(currNode, newNode, map);
+                 newNode.neighbours.add(node);
+                 map.put(currNode, node);
+                 cloneGraphUtil(currNode, node, map);
                 
-                
-                newNode.neighbours.add(new graphNode(currNode.data));
-                map.put(currNode, newNode);
-                cloneGraphUtil(currNode, newNode, map);
             } else {
                 newNode.neighbours.add(map.get(currNode));
             }
