@@ -93,9 +93,7 @@ public class Solution {
         return dummy.next;
     }
 }
-    head.next = reverseKGroup(curr, k)
-
-    return prev
+    
 
 
 
