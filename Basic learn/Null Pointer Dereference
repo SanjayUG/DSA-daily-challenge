@@ -1,0 +1,2 @@
+int* ptr = nullptr;
+cout << *ptr; // CRASH: Pointer does not point to a valid memory address
