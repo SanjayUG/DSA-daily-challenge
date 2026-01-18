@@ -1,9 +1,0 @@
-#include<stdio.h>
-
-void main(){
-
-    int *p; // Declares an integer pointer `p`
-    p = 20; // Initializes the pointer `p` with the integer value 20
-    printf("%d ", *p); // Dereferences `p`, attempting to access memory address 20
-
-}

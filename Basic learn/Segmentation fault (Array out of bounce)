@@ -1,0 +1,2 @@
+int arr[5] = {1, 2, 3, 4, 5};
+cout << arr[10]; // CRASH: Segmentation fault (accessing 11th element of a 5-element array)
