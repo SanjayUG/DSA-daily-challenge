@@ -1,0 +1,10 @@
+// main.cpp
+#include <iostream>
+void printMessage();  // Declaration - tells compiler the function exists
+
+int main() {
+    printMessage();  // Call to function
+    return 0;
+}
+
+// But... no definition of printMessage() anywhere!   
